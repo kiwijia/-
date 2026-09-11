@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="通过结构式认名、名称判类和错题加权，记忆 22 种氨基酸的中英文名称、缩写与基本性质。"
+    />
+    <meta name="theme-color" content="#07131d" />
+    <title>Amino 22 · 氨基酸记忆训练</title>
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%2307131d'/%3E%3Cpath d='M17 32h13m4 0h13M32 17v11m0 8v11' stroke='%23c8ff66' stroke-width='5' stroke-linecap='round'/%3E%3Ccircle cx='32' cy='32' r='6' fill='%2354dbe5'/%3E%3C/svg%3E"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="ambient ambient-a" aria-hidden="true"></div>
+    <div class="ambient ambient-b" aria-hidden="true"></div>
+
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="返回练习顶部">
+        <span class="brand-mark" aria-hidden="true">
+          <i></i><i></i><i></i><i></i><b></b>
+        </span>
+        <span>
+          <strong>AMINO<span>22</span></strong>
+          <small>氨基酸记忆训练</small>
+        </span>
+      </a>
+      <div class="header-stats" aria-label="本次练习统计">
+        <div><span>连对</span><strong id="headerStreak">0</strong></div>
+        <div><span>正确率</span><strong id="headerAccuracy">—</strong></div>
+        <button class="reference-button" id="openReference" type="button">22 种速查</button>
+      </div>
+    </header>
+
+    <main class="app-shell">
+      <section class="practice-column" aria-labelledby="practiceTitle">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">CHAPTER 3 · PRACTICE</p>
+            <h1 id="practiceTitle">今天先记住一个。</h1>
+          </div>
+          <span class="scope-pill">20 核心 + 2 拓展</span>
+        </div>
+
+        <div class="mode-tabs" role="tablist" aria-label="练习模式">
+          <button class="mode-tab active" type="button" role="tab" aria-selected="true" data-mode="mixed">
+            混合训练
+          </button>
+          <button class="mode-tab" type="button" role="tab" aria-selected="false" data-mode="image">
+            看图认名
+          </button>
+          <button class="mode-tab" type="button" role="tab" aria-selected="false" data-mode="property">
+            名称判类
+          </button>
+        </div>
+
+        <article class="quiz-card" id="quizCard">
+          <div class="quiz-meta">
+            <span id="questionCounter">第 1 题</span>
+            <span class="question-type" id="questionType">看结构选名称</span>
+          </div>
+
+          <div class="prompt-area">
+            <div class="molecule-stage" id="moleculeStage"></div>
+            <div class="property-prompt hidden" id="propertyPrompt">
+              <span class="letter-tile" id="propertyLetter">G</span>
+              <div>
+                <p id="propertyEnglish">Glycine · Gly</p>
+                <h2 id="propertyChinese">甘氨酸</h2>
+              </div>
+            </div>
+            <p class="question-label" id="questionLabel">这是什么氨基酸？</p>
+          </div>
+
+          <div class="answer-grid" id="answerGrid" aria-label="答案选项"></div>
+
+          <div class="feedback" id="feedback" aria-live="polite" aria-hidden="true">
+            <div class="feedback-status">
+              <span class="feedback-icon" id="feedbackIcon" aria-hidden="true">✓</span>
+              <div>
+                <strong id="feedbackTitle">答对了</strong>
+                <p id="feedbackName"></p>
+              </div>
+            </div>
+            <p class="memory-note" id="memoryNote"></p>
+            <div class="answer-tags" id="answerTags"></div>
+            <button class="next-button" id="nextButton" type="button">
+              下一题 <span aria-hidden="true">→</span>
+            </button>
+          </div>
+
+          <div class="shortcut-note">键盘：1–4 选择 · Enter 下一题</div>
+        </article>
+      </section>
+
+      <aside class="progress-column" aria-label="学习进度">
+        <section class="progress-card overview-card">
+          <div class="card-kicker">YOUR LAB NOTES</div>
+          <div class="progress-summary">
+            <div class="progress-ring" id="progressRing" style="--progress: 0">
+              <span><strong id="masteredCount">0</strong><small>/ 22</small></span>
+            </div>
+            <div>
+              <h2>已掌握</h2>
+              <p>每种答对 3 次，即点亮一个位置。</p>
+            </div>
+          </div>
+          <div class="amino-map" id="aminoMap" aria-label="22 种氨基酸掌握情况"></div>
+        </section>
+
+        <section class="progress-card review-card">
+          <div class="review-heading">
+            <div>
+              <span class="card-kicker">FOCUS NEXT</span>
+              <h2>优先复习</h2>
+            </div>
+            <span class="review-count" id="reviewCount">0 项</span>
+          </div>
+          <div class="review-list" id="reviewList"></div>
+        </section>
+
+        <p class="source-note">
+          分类依据本章第 22–41 页；U 见第 43 页。O 未收入本章，标作拓展项。
+          “带电”均指侧链在 pH 7 附近的课件分类。
+        </p>
+      </aside>
+    </main>
+
+    <dialog class="reference-dialog" id="referenceDialog">
+      <div class="dialog-head">
+        <div>
+          <span class="card-kicker">QUICK REFERENCE</span>
+          <h2>22 种氨基酸速查</h2>
+        </div>
+        <button id="closeReference" type="button" aria-label="关闭速查表">×</button>
+      </div>
+      <div class="reference-legend">
+        <span><i class="core-dot"></i> 本章 20 种标准氨基酸</span>
+        <span><i class="extension-dot"></i> 拓展编码氨基酸</span>
+      </div>
+      <div class="reference-grid" id="referenceGrid"></div>
+    </dialog>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
